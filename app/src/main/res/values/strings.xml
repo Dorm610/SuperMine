@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Super Mine</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="titleText1">title here</string>
+    <string name="mine">厂矿</string>
+    <string name="truck">货车</string>
+    <string name="bill">货单</string>
+    <string name="me">我</string>
+</resources>
