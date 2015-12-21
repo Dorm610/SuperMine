@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
-public class MainActivity extends AppCompatActivity {
+public class MainSuperMine extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

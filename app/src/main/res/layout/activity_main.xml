@@ -22,7 +22,7 @@
             android:scaleType="matrix"
             android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
-            android:src="#33ffee"
+            android:src="@color/light_cyan"
             />
 
 
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:scaleType="matrix"
                     android:clickable="true"
-                    android:src="@drawable/mine_32px" />
+                    android:src="@drawable/icon_mine" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:scaleType="matrix"
                     android:clickable="true"
-                    android:src="@drawable/truck_32px" />
+                    android:src="@drawable/icon_truck" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,11 +85,11 @@
                     android:layout_height="wrap_content"
                     android:scaleType="matrix"
                     android:clickable="true"
-                    android:src="@drawable/order_32px" />
+                    android:src="@drawable/icon_order" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bill"
+                    android:text="@string/order"
                     android:textColor="#000"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:scaleType="matrix"
                     android:clickable="true"
-                    android:src="@drawable/me_32px" />
+                    android:src="@drawable/icon_me" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
