@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/login_edit_normal.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/login_edit_pressed.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/login_error_icon.png" charset="GBK" />
-    <file url="PROJECT" charset="UTF-8" />
-  </component>
-</project>
