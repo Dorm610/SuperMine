@@ -27,18 +27,7 @@
             android:background="@drawable/title_btn_back"
         />
 
-        <Button
-            android:id="@+id/login_OK"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:text="ASD"
-            android:textSize="35sp"
-            android:textColor="#81f"
-            android:onClick="login_back"
-            android:background="@drawable/title_btn_back"
-            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

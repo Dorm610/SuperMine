@@ -20,6 +20,7 @@ public class Welcome extends Activity {
         intent.setClass(Welcome.this, Login.class);
         startActivity(intent);
 //        this.finish();
+
     }
 
     public void welcome_register(View v) {
