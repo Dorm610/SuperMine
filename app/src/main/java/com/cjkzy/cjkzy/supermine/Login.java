@@ -31,7 +31,8 @@ public class Login extends Activity {
     }
 
     public void login_main(View v) {
-        if ("123".equals(mUser.getText().toString()) && ("123".equals(mPassword.getText().toString()))) {
+//        if ("123".equals(mUser.getText().toString()) && ("123".equals(mPassword.getText().toString()))) {
+            if (("".equals(mUser.getText().toString().trim())) || ("".equals(mPassword.getText().toString().trim()))){
             Intent intent = new Intent();
             intent.setClass(Login.this, LoadingActivity.class);
             startActivity(intent);
