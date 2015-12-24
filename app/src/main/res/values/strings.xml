@@ -13,6 +13,6 @@
     <string name="slogan_welcome">连接厂矿与货车</string>
     <string name="login_user_hint">用户名/手机号（请输入123）</string>
     <string name="login_pw_hint">密码（请输入123）</string>
-    <string name="login_back">\></string>
+    <string name="login_back">返回</string>
     <string name="login_btn_forget">忘记密码？</string>
 </resources>

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/login_back"
-            android:textSize="30sp"
+            android:textSize="18sp"
             android:textColor="#fff"
             android:onClick="login_back"
             android:background="@drawable/title_btn_back"
