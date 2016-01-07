@@ -22,6 +22,8 @@
         <activity android:name=".LoadingActivity"  android:theme="@style/Anim_style2"  />
         <activity android:name=".Whatsnew"  android:theme="@style/Anim_style2"  />
         <activity android:name=".WhatsnewDoor"  android:theme="@style/Anim_style2"  />
+        <activity android:name=".MainSuperMine"  android:theme="@style/AppTheme"  />
+        <activity android:name=".MainTopRightDialog"  android:theme="@style/Anim_style2"  />
     </application>
 
 </manifest>
