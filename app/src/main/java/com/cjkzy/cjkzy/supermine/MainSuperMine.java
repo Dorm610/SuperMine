@@ -87,7 +87,7 @@ public class MainSuperMine extends Activity {
         View view1 = mLi.inflate(R.layout.main_tab_factory, null);
         View view2 = mLi.inflate(R.layout.main_tab_factory, null);
         View view3 = mLi.inflate(R.layout.main_tab_factory, null);
-        View view4 = mLi.inflate(R.layout.main_tab_factory, null);
+        View view4 = mLi.inflate(R.layout.main_tab_setting, null);
 
         //每个页面的view数据
         final ArrayList<View> views = new ArrayList<View>();
