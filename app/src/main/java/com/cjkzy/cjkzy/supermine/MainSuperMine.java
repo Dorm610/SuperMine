@@ -85,7 +85,7 @@ public class MainSuperMine extends Activity {
         //将要分页显示的View装入数组中
         LayoutInflater mLi = LayoutInflater.from(this);
         View view1 = mLi.inflate(R.layout.main_tab_factory, null);
-        View view2 = mLi.inflate(R.layout.main_tab_factory, null);
+        View view2 = mLi.inflate(R.layout.main_tab_choosing, null);
         View view3 = mLi.inflate(R.layout.main_tab_factory, null);
         View view4 = mLi.inflate(R.layout.main_tab_setting, null);
 

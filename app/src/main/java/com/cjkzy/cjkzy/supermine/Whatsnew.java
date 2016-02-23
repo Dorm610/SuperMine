@@ -138,6 +138,7 @@ public class Whatsnew extends Activity {
         }
     }
     public void startbutton(View v) {
+        MainApp.setisFirst(false);
         Intent intent = new Intent();
         intent.setClass(Whatsnew.this,WhatsnewDoor.class);
         startActivity(intent);

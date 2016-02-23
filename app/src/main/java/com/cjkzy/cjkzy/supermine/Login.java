@@ -37,6 +37,7 @@ public class Login extends Activity {
             intent.setClass(Login.this, LoadingActivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
+                this.finish();
         } else if (("".equals(mUser.getText().toString().trim())) || ("".equals(mPassword.getText().toString().trim()))) {
 
             showErrorDialog("登陆错误", "用户名或密码不能为空，\n请输入后再登录！");

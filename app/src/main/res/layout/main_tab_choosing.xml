@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/choosing_vertical_margin"
+        android:layout_marginLeft="@dimen/choosing_horizontal_margin"
+        android:text="出售\n信息"
+        android:background="@drawable/btn_welcom_blue"
+        android:textColor="#ffffff"
+        android:textSize="28sp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:id="@+id/choosing_button1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/choosing_button1"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/choosing_button1"
+        android:layout_alignBottom="@id/choosing_button1"
+        android:layout_marginLeft="@dimen/choosing_gap"
+        android:layout_marginRight="@dimen/choosing_horizontal_margin"
+
+        android:text="搜索\n求购"
+        android:background="@drawable/btn_welcome_white"
+        android:textColor="#000000"
+        android:textSize="28sp"
+
+        android:id="@+id/choosing_button2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/choosing_button1"
+        android:layout_alignLeft="@id/choosing_button1"
+        android:layout_alignRight="@id/choosing_button1"
+        android:layout_marginTop="@dimen/choosing_gap"
+        android:layout_marginBottom="@dimen/choosing_vertical_margin"
+        android:text="发布\n求购"
+        android:background="@drawable/btn_welcome_white"
+        android:textColor="#000000"
+        android:textSize="28sp"
+
+        android:id="@+id/choosing_button3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/choosing_button3"
+        android:layout_alignRight="@id/choosing_button2"
+        android:layout_alignTop="@id/choosing_button3"
+        android:layout_alignLeft="@id/choosing_button2"
+        android:layout_below="@id/choosing_button2"
+        android:layout_toRightOf="@id/choosing_button3"
+        android:text="搜索\n出售"
+        android:background="@drawable/btn_welcom_blue"
+        android:textColor="#ffffff"
+
+
+        android:textSize="28sp"
+
+        android:id="@+id/choosing_button4" />
+</RelativeLayout>
