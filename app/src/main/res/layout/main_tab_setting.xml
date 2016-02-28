@@ -391,7 +391,7 @@
                 android:textColor="#fff"
                 android:gravity="center"
                 android:background="@drawable/btn_style_red"
-                android:onClick="exit_settings"
+                android:onClick="exitSettings"
                 />
 
         </LinearLayout>

@@ -1,9 +1,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_supermine"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bar"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/role_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/current_role_driver"
+            android:background="@drawable/title_bar"
+            android:textColor="#ffffff"
+            android:onClick="changeRole"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="超级矿资源"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:onClick="changeRole"/>
+
+        <ImageButton
+            android:id="@+id/right_btn"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/title_btn_right"
+            android:onClick="startMainRight"
+            android:src="@drawable/title_btn_function" />
+    </RelativeLayout>
+
 
 
     <RelativeLayout
@@ -11,41 +52,40 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
         android:background="#ffffff"
-        >
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/img_tab_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="matrix"
-            android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
-            android:src="@color/light_cyan"
-            />
+            android:layout_gravity="bottom"
+            android:scaleType="matrix"
+            android:src="@color/light_cyan" />
 
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:paddingBottom="2dp"
-            >
+            android:paddingBottom="2dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/img_factory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="matrix"
                     android:clickable="true"
+                    android:scaleType="matrix"
                     android:src="@drawable/icon_mine" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,19 +93,22 @@
                     android:textColor="#000"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/img_truck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="matrix"
                     android:clickable="true"
+                    android:scaleType="matrix"
                     android:src="@drawable/icon_truck" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,19 +116,22 @@
                     android:textColor="#000"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/img_bill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="matrix"
                     android:clickable="true"
+                    android:scaleType="matrix"
                     android:src="@drawable/icon_order" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,16 +143,18 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/img_me"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="matrix"
                     android:clickable="true"
+                    android:scaleType="matrix"
                     android:src="@drawable/icon_me" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,19 +167,19 @@
 
     </RelativeLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/title"
         android:layout_above="@id/main_bottom"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/tabpager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" >
-        </android.support.v4.view.ViewPager>
+            android:layout_gravity="center"></android.support.v4.view.ViewPager>
     </LinearLayout>
 
 </RelativeLayout>

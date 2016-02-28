@@ -14,14 +14,15 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Toast;
+
+import com.cjkzy.cjkzy.supermine.common.Consts;
 
 public class MainSuperMine extends Activity {
 
@@ -29,7 +30,7 @@ public class MainSuperMine extends Activity {
 
     private ViewPager mTabPager;
     private ImageView mTabImg;// 动画图片
-    private ImageView mTab1,mTab2,mTab3,mTab4;
+    private ImageView mTab1, mTab2, mTab3, mTab4;
     private int zero = 0;// 动画图片偏移量
     private int currIndex = 0;// 当前页卡编号
     private int one;//单个水平动画位移
@@ -42,13 +43,14 @@ public class MainSuperMine extends Activity {
     private PopupWindow menuWindow;
     private LayoutInflater inflater;
     //private Button mRightBtn;
+    private Button roleBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //启动activity时不自动弹出软键盘
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         instance = this;
         /*
         mRightBtn = (Button) findViewById(R.id.right_btn);
@@ -59,7 +61,7 @@ public class MainSuperMine extends Activity {
 			}
 		  });*/
 
-        mTabPager = (ViewPager)findViewById(R.id.tabpager);
+        mTabPager = (ViewPager) findViewById(R.id.tabpager);
         mTabPager.addOnPageChangeListener(new MyOnPageChangeListener());
 
         mTab1 = (ImageView) findViewById(R.id.img_factory);
@@ -67,6 +69,8 @@ public class MainSuperMine extends Activity {
         mTab3 = (ImageView) findViewById(R.id.img_bill);
         mTab4 = (ImageView) findViewById(R.id.img_me);
         mTabImg = (ImageView) findViewById(R.id.img_tab_now);
+        roleBtn = (Button) findViewById(R.id.role_button);
+        prepareRole();
         mTab1.setOnClickListener(new MyOnClickListener(0));
         mTab2.setOnClickListener(new MyOnClickListener(1));
         mTab3.setOnClickListener(new MyOnClickListener(2));
@@ -76,9 +80,9 @@ public class MainSuperMine extends Activity {
         currDisplay.getMetrics(dm);
         int displayWidth = currDisplay.getWidth();
         int displayHeight = currDisplay.getHeight();
-        one = displayWidth/4; //设置水平动画平移大小
-        two = one*2;
-        three = one*3;
+        one = displayWidth / 4; //设置水平动画平移大小
+        two = one * 2;
+        three = one * 3;
         //Log.i("info", "获取的屏幕分辨率为" + one + two + three + "X" + displayHeight);
 
         //InitImageView();//使用动画
@@ -110,7 +114,7 @@ public class MainSuperMine extends Activity {
 
             @Override
             public void destroyItem(View container, int position, Object object) {
-                ((ViewPager)container).removeView(views.get(position));
+                ((ViewPager) container).removeView(views.get(position));
             }
 
             //@Override
@@ -120,13 +124,27 @@ public class MainSuperMine extends Activity {
 
             @Override
             public Object instantiateItem(View container, int position) {
-                ((ViewPager)container).addView(views.get(position));
+                ((ViewPager) container).addView(views.get(position));
                 return views.get(position);
             }
         };
 
         mTabPager.setAdapter(mPagerAdapter);
     }
+
+    private void prepareRole() {
+        if (MainApp.getCurrentRole().equals(Consts.ROLE_DRIVER)) {
+            MainApp.setCurrentRole(Consts.ROLE_DRIVER);
+            roleBtn.setText(this.getString(R.string.current_role_driver));
+            // TODO change some layout
+        } else {
+            MainApp.setCurrentRole(Consts.ROLE_OWNER);
+            roleBtn.setText(this.getString(R.string.current_role_owner));
+            // TODO change some layout
+        }
+    }
+
+
     /**
      * 头标点击监听
      */
@@ -136,11 +154,14 @@ public class MainSuperMine extends Activity {
         public MyOnClickListener(int i) {
             index = i;
         }
+
         @Override
         public void onClick(View v) {
             mTabPager.setCurrentItem(index);
         }
-    };
+    }
+
+    ;
 
     /* 页卡切换监听(原作者:D.Winter)
     */
@@ -157,8 +178,7 @@ public class MainSuperMine extends Activity {
                     } else if (currIndex == 2) {
                         animation = new TranslateAnimation(two, 0, 0, 0);
                         mTab3.setImageDrawable(getResources().getDrawable(R.drawable.icon_order));
-                    }
-                    else if (currIndex == 3) {
+                    } else if (currIndex == 3) {
                         animation = new TranslateAnimation(three, 0, 0, 0);
                         mTab4.setImageDrawable(getResources().getDrawable(R.drawable.icon_me));
                     }
@@ -171,8 +191,7 @@ public class MainSuperMine extends Activity {
                     } else if (currIndex == 2) {
                         animation = new TranslateAnimation(two, one, 0, 0);
                         mTab3.setImageDrawable(getResources().getDrawable(R.drawable.icon_order));
-                    }
-                    else if (currIndex == 3) {
+                    } else if (currIndex == 3) {
                         animation = new TranslateAnimation(three, one, 0, 0);
                         mTab4.setImageDrawable(getResources().getDrawable(R.drawable.icon_me));
                     }
@@ -185,8 +204,7 @@ public class MainSuperMine extends Activity {
                     } else if (currIndex == 1) {
                         animation = new TranslateAnimation(one, two, 0, 0);
                         mTab2.setImageDrawable(getResources().getDrawable(R.drawable.icon_truck));
-                    }
-                    else if (currIndex == 3) {
+                    } else if (currIndex == 3) {
                         animation = new TranslateAnimation(three, two, 0, 0);
                         mTab4.setImageDrawable(getResources().getDrawable(R.drawable.icon_me));
                     }
@@ -199,8 +217,7 @@ public class MainSuperMine extends Activity {
                     } else if (currIndex == 1) {
                         animation = new TranslateAnimation(one, three, 0, 0);
                         mTab2.setImageDrawable(getResources().getDrawable(R.drawable.icon_truck));
-                    }
-                    else if (currIndex == 2) {
+                    } else if (currIndex == 2) {
                         animation = new TranslateAnimation(two, three, 0, 0);
                         mTab3.setImageDrawable(getResources().getDrawable(R.drawable.icon_order));
                     }
@@ -225,50 +242,47 @@ public class MainSuperMine extends Activity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {  //获取 back键
 
-            if(menu_display){         //如果 Menu已经打开 ，先关闭Menu
+            if (menu_display) {         //如果 Menu已经打开 ，先关闭Menu
                 menuWindow.dismiss();
                 menu_display = false;
-            }
-            else {
+            } else {
                 Intent intent = new Intent();
-                intent.setClass(MainSuperMine.this,Exit.class);
+                intent.setClass(MainSuperMine.this, Exit.class);
                 startActivity(intent);
             }
-        }
-
-        else if(keyCode == KeyEvent.KEYCODE_MENU){   //获取 Menu键
-            if(!menu_display){
+        } else if (keyCode == KeyEvent.KEYCODE_MENU) {   //获取 Menu键
+            if (!menu_display) {
                 //获取LayoutInflater实例
-                inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
                 //这里的main布局是在inflate中加入的哦，以前都是直接this.setContentView()的吧？呵呵
                 //该方法返回的是一个View的对象，是布局中的根
                 layout = inflater.inflate(R.layout.main_menu, null);
 
                 //下面我们要考虑了，我怎样将我的layout加入到PopupWindow中呢？？？很简单
-                menuWindow = new PopupWindow(layout,LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT); //后两个参数是width和height
+                menuWindow = new PopupWindow(layout, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT); //后两个参数是width和height
                 //menuWindow.showAsDropDown(layout); //设置弹出效果
                 //menuWindow.showAsDropDown(null, 0, layout.getHeight());
-                menuWindow.showAtLocation(this.findViewById(R.id.main_supermine), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+                menuWindow.showAtLocation(this.findViewById(R.id.main_supermine), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 //如何获取我们main中的控件呢？也很简单
-                mClose = (LinearLayout)layout.findViewById(R.id.menu_close);
-                mCloseBtn = (LinearLayout)layout.findViewById(R.id.menu_close_btn);
+                mClose = (LinearLayout) layout.findViewById(R.id.menu_close);
+                mCloseBtn = (LinearLayout) layout.findViewById(R.id.menu_close_btn);
 
 
                 //下面对每一个Layout进行单击事件的注册吧。。。
                 //比如单击某个MenuItem的时候，他的背景色改变
                 //事先准备好一些背景图片或者颜色
-                mCloseBtn.setOnClickListener (new View.OnClickListener() {
+                mCloseBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
                         //Toast.makeText(Main.this, "退出", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent();
-                        intent.setClass(MainSuperMine.this,Exit.class);
+                        intent.setClass(MainSuperMine.this, Exit.class);
                         startActivity(intent);
                         menuWindow.dismiss(); //响应点击事件之后关闭Menu
                     }
                 });
                 menu_display = true;
-            }else{
+            } else {
                 //如果当前已经为显示状态，则隐藏起来
                 menuWindow.dismiss();
                 menu_display = false;
@@ -278,23 +292,39 @@ public class MainSuperMine extends Activity {
         }
         return false;
     }
+
     //设置标题栏右侧按钮的作用
-    public void btnmainright(View v) {
-        Intent intent = new Intent (MainSuperMine.this,MainTopRightDialog.class);
+    public void startMainRight(View v) {
+        Intent intent = new Intent(MainSuperMine.this, MainTopRightDialog.class);
         startActivity(intent);
         //Toast.makeText(getApplicationContext(), "点击了功能按钮", Toast.LENGTH_LONG).show();
     }
-    public void startchat(View v) {      //小黑  对话界面
-        Intent intent = new Intent (MainSuperMine.this,OrderDetailActivity.class);
+
+    public void startChat(View v) {      //小黑  对话界面
+        Intent intent = new Intent(MainSuperMine.this, OrderDetailActivity.class);
         startActivity(intent);
         //Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_LONG).show();
     }
-    public void exit_settings(View v) {                           //退出  伪“对话框”，其实是一个activity
-        Intent intent = new Intent (MainSuperMine.this,ExitFromSettings.class);
+
+    public void exitSettings(View v) {                           //退出  伪“对话框”，其实是一个activity
+        Intent intent = new Intent(MainSuperMine.this, ExitFromSettings.class);
         startActivity(intent);
     }
-    public void btn_shake(View v) {                                   //手机摇一摇
-        Intent intent = new Intent (MainSuperMine.this,ShakeActivity.class);
+
+    public void startShake(View v) {                                   //手机摇一摇
+        Intent intent = new Intent(MainSuperMine.this, ShakeActivity.class);
         startActivity(intent);
+    }
+
+    public void changeRole(View v) {
+        if (MainApp.getCurrentRole().equals(Consts.ROLE_DRIVER)) {
+            MainApp.setCurrentRole(Consts.ROLE_OWNER);
+            roleBtn.setText(this.getString(R.string.current_role_owner));
+            // TODO change some layout
+        } else {
+            MainApp.setCurrentRole(Consts.ROLE_DRIVER);
+            roleBtn.setText(this.getString(R.string.current_role_driver));
+            // TODO change some layout
+        }
     }
 }

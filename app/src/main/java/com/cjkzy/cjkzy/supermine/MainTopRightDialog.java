@@ -38,13 +38,5 @@ public class MainTopRightDialog extends Activity {
         finish();
         return true;
     }
-	/*
-	public void exitbutton1(View v) {
-    	this.finish();
-      }
-	public void exitbutton0(View v) {
-    	this.finish();
-    	MainWeixin.instance.finish();//关闭Main 这个Activity
-      }
-	*/
+
 }

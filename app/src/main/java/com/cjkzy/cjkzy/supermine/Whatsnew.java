@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.cjkzy.cjkzy.supermine.common.Consts;
+
 /**
  * Created by xuncl on 2015/12/22.
  */
-public class Whatsnew extends Activity {
+public class WhatsNew extends Activity {
 
     private ViewPager mViewPager;
     private ImageView mPage0;
@@ -138,9 +140,10 @@ public class Whatsnew extends Activity {
         }
     }
     public void startbutton(View v) {
-        MainApp.setisFirst(false);
+        MainApp.setIsFirst(false);
+        MainApp.setCurrentRole(Consts.ROLE_DRIVER);
         Intent intent = new Intent();
-        intent.setClass(Whatsnew.this,WhatsnewDoor.class);
+        intent.setClass(WhatsNew.this,WhatsNewDoor.class);
         startActivity(intent);
         this.finish();
     }

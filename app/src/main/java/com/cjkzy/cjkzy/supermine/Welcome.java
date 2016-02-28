@@ -27,7 +27,7 @@ public class Welcome extends Activity {
     public void welcome_register(View v) {
         Intent intent = new Intent();
         if (MainApp.isFirst()){
-            intent.setClass(Welcome.this, Whatsnew.class);
+            intent.setClass(Welcome.this, WhatsNew.class);
         }else{
             intent.setClass(Welcome.this, MainSuperMine.class);
         }

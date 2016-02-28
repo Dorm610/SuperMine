@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
+
+import com.cjkzy.cjkzy.supermine.common.Consts;
 
 import java.io.File;
 
@@ -13,13 +16,14 @@ import java.io.File;
 public class MainApp extends Application {
 
 
-        private static SharedPreferences mSpSetting;
-        @Override
-        public void onCreate() {
+    private static SharedPreferences mSpSetting;
+    private static SharedPreferences roleSetting;
+    @Override
+    public void onCreate() {
         super.onCreate();
         initSharedPreferences(getApplicationContext());
 //        initImageLoad(getApplicationContext());
-//        c.i(getApplicationContext()); //<-广告商借口
+//        c.i(getApplicationContext()); //<-广告商接口
     }
 
 //    public static void initImageLoad(Context context){
@@ -36,19 +40,31 @@ public class MainApp extends Application {
 //    }
 
     //初始化SharePreference
-    public static void initSharedPreferences(Context context) {
+    public void initSharedPreferences(Context context) {
         mSpSetting = PreferenceManager.getDefaultSharedPreferences(context);
+        roleSetting = getSharedPreferences("role_setting", 0);
     }
-
     //初次打开
-    public static void setisFirst(boolean is){
+    public static void setIsFirst(boolean is) {
         SharedPreferences.Editor editor = mSpSetting.edit();
-        editor.putBoolean("ISFIRST",is).commit();
+        editor.putBoolean(Consts.SP_IS_FIRST, is).commit();
     }
 
     //判断是不是第一次打开
-    public static boolean isFirst(){
-        return mSpSetting.getBoolean("ISFIRST", true);
-    }}
+    public static boolean isFirst() {
+        return mSpSetting.getBoolean(Consts.SP_IS_FIRST, true);
+    }
+
+    // 设置当前用户身份
+    public static void setCurrentRole(String role){
+        SharedPreferences.Editor editor = roleSetting.edit();
+        editor.putString(Consts.SP_CURRENT_ROLE,role).commit();
+    }
+
+    // 获取当前用户身份
+    public static String getCurrentRole() {
+        return roleSetting.getString(Consts.SP_CURRENT_ROLE, Consts.ROLE_DRIVER);
+    }
+}
 
 

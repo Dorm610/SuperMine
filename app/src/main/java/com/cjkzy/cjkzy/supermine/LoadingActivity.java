@@ -19,7 +19,7 @@ public class LoadingActivity extends Activity {
             public void run() {
                 Intent intent;
                 if (MainApp.isFirst()){
-                    intent = new Intent(LoadingActivity.this, Whatsnew.class);
+                    intent = new Intent(LoadingActivity.this, WhatsNew.class);
                 }else{
                     intent = new Intent(LoadingActivity.this, MainSuperMine.class);
                 }
