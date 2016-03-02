@@ -4,11 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.cjkzy.cjkzy.supermine.common.Consts;
-
-import java.io.File;
 
 /**
  * Created by CLEVO on 2016/2/21.

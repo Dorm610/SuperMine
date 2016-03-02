@@ -3,6 +3,8 @@
     package="com.cjkzy.cjkzy.supermine" >
 
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+
     <application
         android:name=".MainApp"
         android:allowBackup="true"
@@ -28,7 +30,7 @@
         <activity android:name=".WhatsNewDoor"  android:theme="@style/Anim_style2"  />
         <activity android:name=".MainSuperMine"  android:theme="@style/AppTheme"  />
         <activity android:name=".MainTopRightDialog"  android:theme="@style/Anim_style2"  />
-        <activity android:name=".Exit"  android:theme="@android:style/Theme.Translucent"   />
+        <activity android:name=".Exit"  android:theme="@android:style/Theme.Translucent.NoTitleBar"   />
         <activity android:name=".OrderDetailActivity"  android:theme="@style/Anim_style2"  />
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
