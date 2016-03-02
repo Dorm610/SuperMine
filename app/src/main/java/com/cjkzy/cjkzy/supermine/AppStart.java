@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.WindowManager;
 
+import com.umeng.onlineconfig.OnlineConfigAgent;
+
 public class AppStart extends Activity{
 
     @Override
@@ -19,6 +21,8 @@ public class AppStart extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.appstart);
 
+        // 获取在线参数方法，储存在本地mContext
+        OnlineConfigAgent.getInstance().updateOnlineConfig(this);
 
         new Handler().postDelayed(new Runnable(){
             @Override

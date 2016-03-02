@@ -139,8 +139,8 @@ public class WhatsNew extends Activity {
         public void onPageScrollStateChanged(int arg0) {
         }
     }
-    public void startbutton(View v) {
-        MainApp.setIsFirst(false);
+    public void startButton(View v) {
+//        MainApp.setIsFirst(false);  //在MainSuperMine实现了
         MainApp.setCurrentRole(Consts.ROLE_DRIVER);
         Intent intent = new Intent();
         intent.setClass(WhatsNew.this,WhatsNewDoor.class);

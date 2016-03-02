@@ -28,6 +28,6 @@
               android:textColor="#fff"
               android:background="@drawable/btn_welcom_blue"
 			  android:layout_gravity="center_vertical"
-			  android:onClick="startbutton"
+			  android:onClick="startButton"
               />
 </RelativeLayout>

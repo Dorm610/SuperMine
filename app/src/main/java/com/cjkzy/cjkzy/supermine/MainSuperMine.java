@@ -23,9 +23,12 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.cjkzy.cjkzy.supermine.common.Consts;
+import com.cjkzy.cjkzy.supermine.common.UpdateUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainSuperMine extends Activity {
 
+    private static final String ACTIVITY_NAME = "MainSuperMain";
     public static MainSuperMine instance = null;
 
     private ViewPager mTabPager;
@@ -60,6 +63,14 @@ public class MainSuperMine extends Activity {
 			{	showPopupWindow (MainSuperMine.this,mRightBtn);
 			}
 		  });*/
+
+        // 检查更新
+        /** TODO: 2016/3/2 在线参数没有变化时，友盟的UmengOnlineConfigureListener的
+         TODO              onDataReceived只会执行一次,所以最好在每次打开app时，要么提示更新
+         TODO              要么取在线参数，交替进行。*/
+        UpdateUtils.checkUpdate(this);
+
+
 
         mTabPager = (ViewPager) findViewById(R.id.tabpager);
         mTabPager.addOnPageChangeListener(new MyOnPageChangeListener());
@@ -326,5 +337,21 @@ public class MainSuperMine extends Activity {
             roleBtn.setText(this.getString(R.string.current_role_driver));
             // TODO change some layout
         }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        MobclickAgent.onPageStart(ACTIVITY_NAME);
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        MobclickAgent.onPageEnd(ACTIVITY_NAME);
+        MobclickAgent.onPause(this);
     }
 }
