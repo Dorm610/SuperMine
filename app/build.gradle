@@ -8,8 +8,8 @@ android {
         applicationId "com.cjkzy.cjkzy.supermine"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 6
-        versionName "0.6"
+        versionCode 7
+        versionName "0.7"
     }
     buildTypes {
         release {
@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile files('libs/umeng-analytics-v5.6.4.jar')
+    compile project(':FlycoTabLayout_Lib')
 }

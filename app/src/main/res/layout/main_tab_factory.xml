@@ -71,7 +71,7 @@
                 android:layout_toRightOf="@id/head"
                 android:padding="7dp"
                 android:text="王某某 188XXXX5991"
-                android:textColor="#666" />
+                android:textColor="#999" />
 
 
         </RelativeLayout>

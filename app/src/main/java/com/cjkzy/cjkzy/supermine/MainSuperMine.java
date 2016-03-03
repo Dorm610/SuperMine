@@ -1,68 +1,63 @@
 package com.cjkzy.cjkzy.supermine;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.Gravity;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import com.cjkzy.cjkzy.supermine.common.Consts;
+import com.cjkzy.cjkzy.supermine.common.UIUtils;
 import com.cjkzy.cjkzy.supermine.common.UpdateUtils;
+import com.cjkzy.cjkzy.supermine.slidingTab.SimpleCardFragment;
+import com.cjkzy.cjkzy.supermine.slidingTab.TabEntity;
+import com.cjkzy.cjkzy.supermine.slidingTab.ViewFindUtils;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.utils.UnreadMsgUtils;
+import com.flyco.tablayout.widget.MsgView;
 import com.umeng.analytics.MobclickAgent;
 
-public class MainSuperMine extends Activity {
+public class MainSuperMine extends AppCompatActivity {
 
     private static final String ACTIVITY_NAME = "MainSuperMain";
     public static MainSuperMine instance = null;
 
-    private ViewPager mTabPager;
-    private ImageView mTabImg;// 动画图片
-    private ImageView mTab1, mTab2, mTab3, mTab4;
-    private int zero = 0;// 动画图片偏移量
-    private int currIndex = 0;// 当前页卡编号
-    private int one;//单个水平动画位移
-    private int two;
-    private int three;
-    private LinearLayout mClose;
-    private LinearLayout mCloseBtn;
-    private View layout;
-    private boolean menu_display = false;
-    private PopupWindow menuWindow;
-    private LayoutInflater inflater;
-    //private Button mRightBtn;
     private Button roleBtn;
+
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+
+    private String[] mTitles = {"厂矿", "货车", "订阅", "我"};
+    private int[] mIconUnselectIds = {
+            R.mipmap.tab_home_unselect, R.mipmap.tab_speech_unselect,
+            R.mipmap.tab_contact_unselect, R.mipmap.tab_more_unselect};
+    private int[] mIconSelectIds = {
+            R.mipmap.tab_home_select, R.mipmap.tab_speech_select,
+            R.mipmap.tab_contact_select, R.mipmap.tab_more_select};
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private View mDecorView;
+    private ViewPager mViewPager;
+    private CommonTabLayout mTabLayout_2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
         //启动activity时不自动弹出软键盘
         getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         instance = this;
-        /*
-        mRightBtn = (Button) findViewById(R.id.right_btn);
-        mRightBtn.setOnClickListener(new Button.OnClickListener()
-		{	@Override
-			public void onClick(View v)
-			{	showPopupWindow (MainSuperMine.this,mRightBtn);
-			}
-		  });*/
 
         // 检查更新
         /** TODO: 2016/3/2 在线参数没有变化时，友盟的UmengOnlineConfigureListener的
@@ -70,78 +65,105 @@ public class MainSuperMine extends Activity {
          TODO              要么取在线参数，交替进行。*/
         UpdateUtils.checkUpdate(this);
 
+        setContentView(R.layout.activity_main_tab);
 
 
-        mTabPager = (ViewPager) findViewById(R.id.tabpager);
-        mTabPager.addOnPageChangeListener(new MyOnPageChangeListener());
-
-        mTab1 = (ImageView) findViewById(R.id.img_factory);
-        mTab2 = (ImageView) findViewById(R.id.img_truck);
-        mTab3 = (ImageView) findViewById(R.id.img_bill);
-        mTab4 = (ImageView) findViewById(R.id.img_me);
-        mTabImg = (ImageView) findViewById(R.id.img_tab_now);
+        // 初始化左上角身份按钮
         roleBtn = (Button) findViewById(R.id.role_button);
+        if (null == roleBtn){
+            Log.d("role","roleBtn is null");
+        }else{
+            Log.d("role","roleBtn is not null");
+        }
         prepareRole();
-        mTab1.setOnClickListener(new MyOnClickListener(0));
-        mTab2.setOnClickListener(new MyOnClickListener(1));
-        mTab3.setOnClickListener(new MyOnClickListener(2));
-        mTab4.setOnClickListener(new MyOnClickListener(3));
-        Display currDisplay = getWindowManager().getDefaultDisplay();//获取屏幕当前分辨率
-        DisplayMetrics dm = new DisplayMetrics();
-        currDisplay.getMetrics(dm);
-        int displayWidth = currDisplay.getWidth();
-        int displayHeight = currDisplay.getHeight();
-        one = displayWidth / 4; //设置水平动画平移大小
-        two = one * 2;
-        three = one * 3;
-        //Log.i("info", "获取的屏幕分辨率为" + one + two + three + "X" + displayHeight);
 
-        //InitImageView();//使用动画
-        //将要分页显示的View装入数组中
-        LayoutInflater mLi = LayoutInflater.from(this);
-        View view1 = mLi.inflate(R.layout.main_tab_factory, null);
-        View view2 = mLi.inflate(R.layout.main_tab_choosing, null);
-        View view3 = mLi.inflate(R.layout.main_tab_factory, null);
-        View view4 = mLi.inflate(R.layout.main_tab_setting, null);
 
-        //每个页面的view数据
-        final ArrayList<View> views = new ArrayList<View>();
-        views.add(view1);
-        views.add(view2);
-        views.add(view3);
-        views.add(view4);
-        //填充ViewPager的数据适配器
-        PagerAdapter mPagerAdapter = new PagerAdapter() {
 
-            @Override
-            public boolean isViewFromObject(View arg0, Object arg1) {
-                return arg0 == arg1;
+                mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_factory));
+                mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_choosing));
+                mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_factory));
+                mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_setting));
+
+
+            for (int i = 0; i < mTitles.length; i++) {
+                mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
             }
 
-            @Override
-            public int getCount() {
-                return views.size();
+            mDecorView = getWindow().getDecorView();
+            mViewPager = ViewFindUtils.find(mDecorView, R.id.vp_2);
+            mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+
+            /** with ViewPager */
+            mTabLayout_2 = ViewFindUtils.find(mDecorView, R.id.tl_2);
+
+            tl_2();
+
+            //两位数
+            mTabLayout_2.showMsg(0, 55);
+            mTabLayout_2.setMsgMargin(0, -5, 5);
+
+            //三位数
+            mTabLayout_2.showMsg(1, 100);
+            mTabLayout_2.setMsgMargin(1, -5, 5);
+
+            //设置未读消息红点
+            mTabLayout_2.showDot(2);
+            MsgView rtv_2_2 = mTabLayout_2.getMsgView(2);
+            if (rtv_2_2 != null) {
+                UnreadMsgUtils.setSize(rtv_2_2, UIUtils.dp2px(this, 7.5f));
             }
 
-            @Override
-            public void destroyItem(View container, int position, Object object) {
-                ((ViewPager) container).removeView(views.get(position));
+            //设置未读消息背景
+            mTabLayout_2.showMsg(3, 5);
+            mTabLayout_2.setMsgMargin(3, 0, 5);
+            MsgView rtv_2_3 = mTabLayout_2.getMsgView(3);
+            if (rtv_2_3 != null) {
+                rtv_2_3.setBackgroundColor(Color.parseColor("#6D8FB0"));
             }
 
-            //@Override
-            //public CharSequence getPageTitle(int position) {
-            //return titles.get(position);
-            //}
-
-            @Override
-            public Object instantiateItem(View container, int position) {
-                ((ViewPager) container).addView(views.get(position));
-                return views.get(position);
-            }
-        };
-
-        mTabPager.setAdapter(mPagerAdapter);
     }
+
+    Random mRandom = new Random();
+    private void tl_2() {
+        mTabLayout_2.setTabData(mTabEntities);
+
+        // tab 点击控制view pager滑动
+        mTabLayout_2.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                mViewPager.setCurrentItem(position);
+
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+                if (position == 0) {
+                    mTabLayout_2.showMsg(0, mRandom.nextInt(100) + 1);
+//                    UnreadMsgUtils.show(mTabLayout_2.getMsgView(0), mRandom.nextInt(100) + 1);
+                }
+            }
+        });
+        // view pager 滑动控制 tab 选择
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTabLayout_2.setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        mViewPager.setCurrentItem(1);
+    }
+
 
     private void prepareRole() {
         if (MainApp.getCurrentRole().equals(Consts.ROLE_DRIVER)) {
@@ -156,153 +178,16 @@ public class MainSuperMine extends Activity {
     }
 
 
-    /**
-     * 头标点击监听
-     */
-    public class MyOnClickListener implements View.OnClickListener {
-        private int index = 0;
-
-        public MyOnClickListener(int i) {
-            index = i;
-        }
-
-        @Override
-        public void onClick(View v) {
-            mTabPager.setCurrentItem(index);
-        }
-    }
-
-    ;
-
-    /* 页卡切换监听(原作者:D.Winter)
-    */
-    public class MyOnPageChangeListener implements OnPageChangeListener {
-        @Override
-        public void onPageSelected(int arg0) {
-            Animation animation = null;
-            switch (arg0) {
-                case 0:
-                    mTab1.setImageDrawable(getResources().getDrawable(R.drawable.icon_mine_pressed));
-                    if (currIndex == 1) {
-                        animation = new TranslateAnimation(one, 0, 0, 0);
-                        mTab2.setImageDrawable(getResources().getDrawable(R.drawable.icon_truck));
-                    } else if (currIndex == 2) {
-                        animation = new TranslateAnimation(two, 0, 0, 0);
-                        mTab3.setImageDrawable(getResources().getDrawable(R.drawable.icon_order));
-                    } else if (currIndex == 3) {
-                        animation = new TranslateAnimation(three, 0, 0, 0);
-                        mTab4.setImageDrawable(getResources().getDrawable(R.drawable.icon_me));
-                    }
-                    break;
-                case 1:
-                    mTab2.setImageDrawable(getResources().getDrawable(R.drawable.icon_truck_pressed));
-                    if (currIndex == 0) {
-                        animation = new TranslateAnimation(zero, one, 0, 0);
-                        mTab1.setImageDrawable(getResources().getDrawable(R.drawable.icon_mine));
-                    } else if (currIndex == 2) {
-                        animation = new TranslateAnimation(two, one, 0, 0);
-                        mTab3.setImageDrawable(getResources().getDrawable(R.drawable.icon_order));
-                    } else if (currIndex == 3) {
-                        animation = new TranslateAnimation(three, one, 0, 0);
-                        mTab4.setImageDrawable(getResources().getDrawable(R.drawable.icon_me));
-                    }
-                    break;
-                case 2:
-                    mTab3.setImageDrawable(getResources().getDrawable(R.drawable.icon_order_pressed));
-                    if (currIndex == 0) {
-                        animation = new TranslateAnimation(zero, two, 0, 0);
-                        mTab1.setImageDrawable(getResources().getDrawable(R.drawable.icon_mine));
-                    } else if (currIndex == 1) {
-                        animation = new TranslateAnimation(one, two, 0, 0);
-                        mTab2.setImageDrawable(getResources().getDrawable(R.drawable.icon_truck));
-                    } else if (currIndex == 3) {
-                        animation = new TranslateAnimation(three, two, 0, 0);
-                        mTab4.setImageDrawable(getResources().getDrawable(R.drawable.icon_me));
-                    }
-                    break;
-                case 3:
-                    mTab4.setImageDrawable(getResources().getDrawable(R.drawable.icon_me_pressed));
-                    if (currIndex == 0) {
-                        animation = new TranslateAnimation(zero, three, 0, 0);
-                        mTab1.setImageDrawable(getResources().getDrawable(R.drawable.icon_mine));
-                    } else if (currIndex == 1) {
-                        animation = new TranslateAnimation(one, three, 0, 0);
-                        mTab2.setImageDrawable(getResources().getDrawable(R.drawable.icon_truck));
-                    } else if (currIndex == 2) {
-                        animation = new TranslateAnimation(two, three, 0, 0);
-                        mTab3.setImageDrawable(getResources().getDrawable(R.drawable.icon_order));
-                    }
-                    break;
-            }
-            currIndex = arg0;
-            animation.setFillAfter(true);// True:图片停在动画结束位置
-            animation.setDuration(150);
-            mTabImg.startAnimation(animation);
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {  //获取 back键
-
-            if (menu_display) {         //如果 Menu已经打开 ，先关闭Menu
-                menuWindow.dismiss();
-                menu_display = false;
-            } else {
                 Intent intent = new Intent();
                 intent.setClass(MainSuperMine.this, Exit.class);
                 startActivity(intent);
-            }
-        } else if (keyCode == KeyEvent.KEYCODE_MENU) {   //获取 Menu键
-            if (!menu_display) {
-                //获取LayoutInflater实例
-                inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-                //这里的main布局是在inflate中加入的哦，以前都是直接this.setContentView()的吧？呵呵
-                //该方法返回的是一个View的对象，是布局中的根
-                layout = inflater.inflate(R.layout.main_menu, null);
-
-                //下面我们要考虑了，我怎样将我的layout加入到PopupWindow中呢？？？很简单
-                menuWindow = new PopupWindow(layout, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT); //后两个参数是width和height
-                //menuWindow.showAsDropDown(layout); //设置弹出效果
-                //menuWindow.showAsDropDown(null, 0, layout.getHeight());
-                menuWindow.showAtLocation(this.findViewById(R.id.main_supermine), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-                //如何获取我们main中的控件呢？也很简单
-                mClose = (LinearLayout) layout.findViewById(R.id.menu_close);
-                mCloseBtn = (LinearLayout) layout.findViewById(R.id.menu_close_btn);
-
-
-                //下面对每一个Layout进行单击事件的注册吧。。。
-                //比如单击某个MenuItem的时候，他的背景色改变
-                //事先准备好一些背景图片或者颜色
-                mCloseBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-                        //Toast.makeText(Main.this, "退出", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent();
-                        intent.setClass(MainSuperMine.this, Exit.class);
-                        startActivity(intent);
-                        menuWindow.dismiss(); //响应点击事件之后关闭Menu
-                    }
-                });
-                menu_display = true;
-            } else {
-                //如果当前已经为显示状态，则隐藏起来
-                menuWindow.dismiss();
-                menu_display = false;
-            }
-
-            return false;
         }
         return false;
     }
+
 
     //设置标题栏右侧按钮的作用
     public void startMainRight(View v) {
@@ -354,4 +239,38 @@ public class MainSuperMine extends Activity {
         MobclickAgent.onPageEnd(ACTIVITY_NAME);
         MobclickAgent.onPause(this);
     }
+
+    /**
+     *  谷歌官方认为，ViewPager应该和Fragment一起使用时，此时ViewPager的适配器是FragmentPagerAdapter，
+     *  当你实现一个FragmentPagerAdapter,你必须至少覆盖以下方法:
+     *  getCount()
+     *  getItem()
+     *  如果ViewPager没有和Fragment一起，ViewPager的适配器是PagerAdapter，
+     *  它是基类提供适配器来填充页面ViewPager内部，当你实现一个PagerAdapter,你必须至少覆盖以下方法:
+     *  instantiateItem(ViewGroup, int)
+     *  destroyItem(ViewGroup, int, Object)
+     *  getCount()
+     *  isViewFromObject(View, Object)
+     */
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitles[position];
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+    }
+
 }
