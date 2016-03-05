@@ -26,4 +26,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile files('libs/umeng-analytics-v5.6.4.jar')
     compile project(':FlycoTabLayout_Lib')
+    compile project(':CircleRefresh_Lib')
 }

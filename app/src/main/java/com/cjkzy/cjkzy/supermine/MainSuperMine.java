@@ -20,7 +20,8 @@ import android.widget.Button;
 import com.cjkzy.cjkzy.supermine.common.Consts;
 import com.cjkzy.cjkzy.supermine.common.UIUtils;
 import com.cjkzy.cjkzy.supermine.common.UpdateUtils;
-import com.cjkzy.cjkzy.supermine.slidingTab.SimpleCardFragment;
+import com.cjkzy.cjkzy.supermine.fragments.FactoryFragment;
+import com.cjkzy.cjkzy.supermine.fragments.SimpleCardFragment;
 import com.cjkzy.cjkzy.supermine.slidingTab.TabEntity;
 import com.cjkzy.cjkzy.supermine.slidingTab.ViewFindUtils;
 import com.flyco.tablayout.CommonTabLayout;
@@ -79,7 +80,7 @@ public class MainSuperMine extends AppCompatActivity {
 
 
 
-                mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_factory));
+                mFragments.add(FactoryFragment.getInstance(instance));
                 mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_choosing));
                 mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_factory));
                 mFragments.add(SimpleCardFragment.getInstance(R.layout.main_tab_setting));

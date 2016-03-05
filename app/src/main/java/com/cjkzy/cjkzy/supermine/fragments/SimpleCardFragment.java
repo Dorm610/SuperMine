@@ -1,4 +1,4 @@
-package com.cjkzy.cjkzy.supermine.slidingTab;
+package com.cjkzy.cjkzy.supermine.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.cjkzy.cjkzy.supermine.R;
 
 
 @SuppressLint("ValidFragment")

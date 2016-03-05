@@ -31,50 +31,29 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <com.tuesda.walker.circlerefresh.CircleRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/btn_welcom_blue"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:onClick="startChat">
+            android:layout_height="match_parent"
+            app:AniBackColor="#00a2e8"
+            app:AniForeColor="#ffffffff"
+            app:CircleSmaller="6">
 
-            <ImageView
-                android:id="@+id/head"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:paddingLeft="5dp"
-                android:src="@drawable/btn_welcom_blue" />
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffffff"></ListView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/head"
-                android:padding="7dp"
-                android:text="（货车）垣曲->济南"
-                android:textColor="#000" />
+        </com.tuesda.walker.circlerefresh.CircleRefreshLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:padding="7dp"
-                android:text="煤矿（100）"
-                android:textColor="#666" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@id/head"
-                android:padding="7dp"
-                android:text="王某某 188XXXX5991"
-                android:textColor="#999" />
-
-
-        </RelativeLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/stop_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Stop Refreshing" />
 </RelativeLayout>

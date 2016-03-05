@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/target_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dip" 
+        android:layout_marginBottom="5dip"
+        android:src="@drawable/icon_truck"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/target_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:text="test"
+        android:textColor="#000"
+        android:textSize="20sp"
+         />
+
+    <ImageView
+        android:id="@+id/target_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_phone"
+        android:layout_gravity="center" 
+        android:layout_marginTop="5dip" 
+        android:layout_marginBottom="5dip" 
+        android:layout_marginRight="20dp" />
+
+</LinearLayout>
