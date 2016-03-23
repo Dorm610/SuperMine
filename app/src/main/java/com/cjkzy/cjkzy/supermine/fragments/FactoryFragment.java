@@ -27,7 +27,6 @@ public class FactoryFragment extends Fragment {
 
     private CircleRefreshLayout mRefreshLayout;
     private ListView mList;
-    private Button mStop;
     public Activity activity;
     private List<Order> orders = null;
     private View v;
@@ -51,25 +50,12 @@ public class FactoryFragment extends Fragment {
 
         mRefreshLayout = (CircleRefreshLayout) v.findViewById(R.id.refresh_layout);
         mList = (ListView) v.findViewById(R.id.list);
-        mStop = (Button) v.findViewById(R.id.stop_refresh);
-
-
-        mStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRefreshLayout.finishRefreshing();
-            }
-        });
 
         CircleRefreshLayout.OnCircleRefreshListener refreshListener;
         refreshListener = new CircleRefreshLayout.OnCircleRefreshListener() {
             @Override
             public void refreshing() {
                 // do something when refresh starts
-//                count++;
-//                FactoryFragment.this.addOrder(new Order("测试" + count));
-//                mRefreshLayout.finishRefreshing();
-//                Log.d("circle", "after Finishing.");
                 count++;
                 FactoryFragment.this.addOrder(new Order("测试" + count));
                 mRefreshLayout.finishRefreshing();

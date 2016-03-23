@@ -71,11 +71,7 @@ public class MainSuperMine extends AppCompatActivity {
 
         // 初始化左上角身份按钮
         roleBtn = (Button) findViewById(R.id.role_button);
-        if (null == roleBtn){
-            Log.d("role","roleBtn is null");
-        }else{
-            Log.d("role","roleBtn is not null");
-        }
+
         prepareRole();
 
 

@@ -1,37 +1,58 @@
 package com.cjkzy.cjkzy.supermine.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Order implements Serializable
 {
 
-
-
-
     private static final long serialVersionUID = 3738319298768505925L;
     
-    private int value = 0;
-    
-    private Date time;
-    
+    private Date time = new Date();
+
+    private OrderState orderState;
+
+    private ArrayList<OrderTag> tagList = new ArrayList<OrderTag>();
+
     private String name = "";
-    
+
+    private int publishNum = 0;
+
     private boolean isDone = false;
-    
+
     private int iconId;
-    
+
     private Date endTime;
-    
+
     private String description;
-    
+
     public Order(String name){
         this.name = name;
     }
 
-    public void setValue(int value)
-    {
-        this.value = value;
+    public OrderState getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(OrderState orderState) {
+        this.orderState = orderState;
+    }
+
+    public ArrayList<OrderTag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(ArrayList<OrderTag> tagList) {
+        this.tagList = tagList;
+    }
+
+    public int getPublishNum() {
+        return publishNum;
+    }
+
+    public void setPublishNum(int publishNum) {
+        this.publishNum = publishNum;
     }
 
     public boolean isIsdone()
@@ -80,9 +101,6 @@ public class Order implements Serializable
         this.iconId = iconId;
     }
     
-
-
-
     public Date getEndTime()
     {
         return endTime;
